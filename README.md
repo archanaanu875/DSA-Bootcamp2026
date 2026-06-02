@@ -6,5 +6,7 @@
 - palindrome check LL
 - addition of two LL
 - removal of a loop 
-- 
+- cloning of a LL
+  
+
   
