@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node *next;
+    node(int val){
+        data=val;
+        next=NULL;
+    }
+
+};
+
+node *insert(node *head,int val){
+    node *newnode=new node(val);
+    if(head==NULL){
+        return newnode;
+    }
+    node *temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    // temp->next=head->next;
+    return head;
+}
+
+node *detectloop(node *head){
+    node *slow=head;
+    node *fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    
+    if(slow==fast){
+        cout<<"Loop Exits:";
+        return head;
+    }
+}
+    
+        cout<<"Not";
+    
+    return head;
+}
+
+int main(){
+    node *head=NULL;
+    int n,val;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>val;
+        head=insert(head,val);
+    }
+    head=detectloop(head);
+    return 0;
+}
