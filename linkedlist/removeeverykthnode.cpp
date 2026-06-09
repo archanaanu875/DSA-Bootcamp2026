@@ -18,15 +18,13 @@ node *insert(node *head,int val){
     node *newnode=new node(val);
     if(head==NULL){
         head=newnode;
-        newnode->next=head;
         return head;
     }
     node *temp=head;
-    while(temp->next!=head){
+    while(temp->next!=NULL){
         temp=temp->next;
     }
     temp->next=newnode;
-    newnode->next=head;
     return head;
 }
 
@@ -41,22 +39,58 @@ void display(node *head){
 }
 
 node *removeeverykthnode(node *head,int k){
-    node *curr=head;
-    node *prev=NULL;
-    // int count=0;
-    // while(temp->next!=NULL){
-    //     temp=temp->next;
-    //     count++;
-    // }
-    int count=k;
-    while(count<k){
-        prev=curr;
-        curr=curr->next;
+    
+    int count=1;
+    node *temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
         count++;
     }
-    prev->next=curr->next;
-    delete curr;
-    curr=prev->next;
-    count=k;
-    return head;
+    if(head==NULL || k<=0)
+        return head;
+   if(k==1){
+    while(head){
+        node *temp=head;
+        head=head->next;
+        delete temp;
+    }
+    return NULL;
+   }
+
+   
+
+node *curr=head;
+node *prev=NULL;
+while(curr!=NULL){
+    if(count%k==0){
+        prev->next=curr->next;
+        node *temp=curr;
+        curr=curr->next;
+        delete temp;
+    }
+    else{
+        prev=curr;
+        curr=curr->next;
+    }
+    count++;
+}
+return head;
+    
+}
+
+int main(){
+    node *head=NULL;
+    int n,x;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>x;
+        head=insert(head,x);
+    }
+    display(head);
+    int k;
+    cin>>k;
+    head=removeeverykthnode(head,k);
+    display(head);
+    return 0;
+
 }
